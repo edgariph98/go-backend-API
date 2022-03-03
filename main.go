@@ -34,6 +34,13 @@ func generateTickets(n int) []Ticket {
 	}
 	return tickets
 }
+
+// iterating over each ticket item and print the alias
+func printTickets(tickets []Ticket) {
+	for _, ticket := range tickets {
+		fmt.Printf("Ticket alias: %v\n", ticket.alias)
+	}
+}
 func main() {
 	var conference_name = "Go conference"
 	const conference_tickets = 50
@@ -56,5 +63,18 @@ func main() {
 	fmt.Print("How many random tickets do you want to generate: ")
 	fmt.Scan(&n)
 	customer.tickets = generateTickets(n)
+	fmt.Printf("your tickets are of type %T\n", customer.tickets)
+	if n <= 2 {
+		var total_tickets = n
+		fmt.Printf("you need more than 2 tickets, you currently generated %v, how many extra do you want: ", n)
+		fmt.Scan(&n)
+		customer.tickets = generateTickets(total_tickets + n)
+	} else if n == 3 {
+		fmt.Printf("You cannot generate exactly 3 tickets, enter new number of tickets: ")
+		fmt.Scan(&n)
+		customer.tickets = generateTickets(n)
+	}
+	fmt.Printf("We have generated %v tickets \n", len(customer.tickets))
+	printTickets(customer.tickets)
 
 }
