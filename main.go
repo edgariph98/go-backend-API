@@ -1,8 +1,10 @@
 package main
 
 import (
+	// Importing custom package
 	. "booking-app/customer"
 	"fmt"
+	"math/rand"
 	"strconv"
 )
 
@@ -24,6 +26,14 @@ func printTickets(tickets []Ticket) {
 	for _, ticket := range tickets {
 		fmt.Printf("Ticket alias: %v\n", ticket.Alias)
 	}
+}
+func generateTicketCostMap(tickets []Ticket) map[string]int {
+	var ticketCostMap = make(map[string]int)
+	for _, ticket := range tickets {
+		// random number between 0 and 100
+		ticketCostMap[ticket.Alias] = rand.Intn(100)
+	}
+	return ticketCostMap
 }
 func main() {
 	var conference_name = "Go conference"
@@ -60,5 +70,7 @@ func main() {
 	}
 	fmt.Printf("We have generated %v tickets \n", len(customer.Tickets))
 	printTickets(customer.Tickets)
+	customer.TicketMapCost = generateTicketCostMap(customer.Tickets)
+	fmt.Printf("customer.TicketMapCost: %v\n", customer.TicketMapCost)
 
 }

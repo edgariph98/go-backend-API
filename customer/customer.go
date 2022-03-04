@@ -13,6 +13,8 @@ type Customer struct {
 	Name    string
 	Age     uint
 	Tickets []Ticket
+	// map of alias ticket to cost int
+	TicketMapCost map[string]int
 }
 
 //  member function
