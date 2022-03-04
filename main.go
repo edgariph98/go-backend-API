@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"sync"
 )
 
 // Functions and arrays
@@ -35,7 +36,10 @@ func generateTicketCostMap(tickets []Ticket) map[string]int {
 	}
 	return ticketCostMap
 }
+
 func main() {
+	// thread synchronizer
+	wg := new(sync.WaitGroup)
 	var conference_name = "Go conference"
 	const conference_tickets = 50
 	var remaining_tickets = conference_tickets
@@ -72,5 +76,8 @@ func main() {
 	printTickets(customer.Tickets)
 	customer.TicketMapCost = generateTicketCostMap(customer.Tickets)
 	fmt.Printf("customer.TicketMapCost: %v\n", customer.TicketMapCost)
-
+	customer.Send_All_tickets(wg)
+	// waiting for thereads to complete
+	wg.Wait()
+	fmt.Println("All tickets have been sent")
 }
