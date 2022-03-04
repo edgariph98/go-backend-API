@@ -1,6 +1,7 @@
 package main
 
 import (
+	. "booking-app/customer"
 	"fmt"
 	"strconv"
 )
@@ -11,8 +12,8 @@ func generateTickets(n int) []Ticket {
 	var aliasTicket = "ticket"
 	for i := 0; i < n; i++ {
 		tickets = append(tickets, Ticket{
-			id:    i,
-			alias: aliasTicket + strconv.Itoa(i),
+			Id:    i,
+			Alias: aliasTicket + strconv.Itoa(i),
 		})
 	}
 	return tickets
@@ -21,7 +22,7 @@ func generateTickets(n int) []Ticket {
 // iterating over each ticket item and print the alias
 func printTickets(tickets []Ticket) {
 	for _, ticket := range tickets {
-		fmt.Printf("Ticket alias: %v\n", ticket.alias)
+		fmt.Printf("Ticket alias: %v\n", ticket.Alias)
 	}
 }
 func main() {
@@ -35,29 +36,29 @@ func main() {
 	var customer Customer
 	// user input
 	fmt.Print("Enter your name: ")
-	fmt.Scanln(&customer.name)
+	fmt.Scanln(&customer.Name)
 	fmt.Print("Enter Your age: ")
-	fmt.Scan(&customer.age)
-	fmt.Printf("Hello %v with age %v, Welcome! \n", customer.name, customer.age)
+	fmt.Scan(&customer.Age)
+	fmt.Printf("Hello %v with age %v, Welcome! \n", customer.Name, customer.Age)
 	fmt.Print("How many years in adavance you want to check you will be: ")
 	var n int
 	fmt.Scan(&n)
-	fmt.Printf("You will be %v in %v years!\n", customer.age_in_n_years(n), n)
+	fmt.Printf("You will be %v in %v years!\n", customer.Age_in_n_years(n), n)
 	fmt.Print("How many random tickets do you want to generate: ")
 	fmt.Scan(&n)
-	customer.tickets = generateTickets(n)
-	fmt.Printf("your tickets are of type %T\n", customer.tickets)
+	customer.Tickets = generateTickets(n)
+	fmt.Printf("your tickets are of type %T\n", customer.Tickets)
 	if n <= 2 {
 		var total_tickets = n
 		fmt.Printf("you need more than 2 tickets, you currently generated %v, how many extra do you want: ", n)
 		fmt.Scan(&n)
-		customer.tickets = generateTickets(total_tickets + n)
+		customer.Tickets = generateTickets(total_tickets + n)
 	} else if n == 3 {
 		fmt.Printf("You cannot generate exactly 3 tickets, enter new number of tickets: ")
 		fmt.Scan(&n)
-		customer.tickets = generateTickets(n)
+		customer.Tickets = generateTickets(n)
 	}
-	fmt.Printf("We have generated %v tickets \n", len(customer.tickets))
-	printTickets(customer.tickets)
+	fmt.Printf("We have generated %v tickets \n", len(customer.Tickets))
+	printTickets(customer.Tickets)
 
 }
